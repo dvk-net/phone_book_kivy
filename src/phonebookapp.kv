@@ -1,0 +1,84 @@
+#:kivy 2.0.0
+<MainWindow>:
+    orientation:'vertical'
+
+    MDToolbar:
+        title: 'Телефонная книга'
+        MDIconButton:
+            id: button_1
+            icon: "expand-all-outline"
+            pos_hint: {"center_y": .5}
+            on_release: app.show_all()
+
+    MDBottomNavigation:
+        id: bottom_nav
+        MDBottomNavigationItem:
+            name: 'screen search'
+            text: 'Поиск'
+            icon: 'magnify'
+
+            MDBoxLayout:
+                orientation:'vertical'
+                MDBoxLayout:
+                    adaptive_height: True
+                    MDTextField:
+                        id: search_name
+                        adaptive_height: True
+                        hint_text: "Введите имя контакта для поиска"
+
+                    MDRectangleFlatButton:
+                        adaptive_height: True
+                        text: 'Искать'
+                        on_release:
+                            app.name_search_and_populate_results_list(root.ids.search_name.text)
+                MDBoxLayout:
+                    adaptive_height: True
+                    MDTextField:
+                        hint_text: "Введите номер телефона для поиска"
+                        id: search_phone
+                        adaptive_height: True
+                    
+                    MDRectangleFlatButton:
+                        adaptive_height: True
+                        text: 'Искать'
+                        on_release:
+                            app.name_search_and_populate_results_list(root.ids.search_phone.text)
+                ScrollView:
+                    size_hint: 1, 8
+                    MDList:
+                        id: search_results
+                Widget:
+
+        MDBottomNavigationItem:
+            name: 'screen 2'
+            text: 'Добавить'
+            icon: 'account-plus-outline'
+
+            MDBoxLayout:
+                orientation:'vertical'
+                MDTextField:
+                    id: add_name
+                    hint_text: "Введите имя контакта"
+                    adaptive_height: True
+                MDTextField:
+                    id: add_phones
+                    multiline: True
+                    hint_text: "Введите телефоны"
+                    adaptive_height: True
+                Widget:
+                MDFloatingActionButton:
+                    icon: 'plus'
+                    md_bg_color: app.theme_cls.primary_color
+                    pos_hint: {"right": 0.95, "top": 0}
+                    on_release: 
+                        app.save_contact_and_switch_to_search(root.ids.add_name.text, root.ids.add_phones.text)
+                Widget:
+                    size_hint: 1, .05
+
+<SearchResultItem>:
+    IconLeftWidget:
+        icon: "phone"
+    RightButton:
+        icon: "minus"
+        on_release:
+            root.delete_phone(root.user_id)
