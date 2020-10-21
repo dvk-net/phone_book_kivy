@@ -46,9 +46,9 @@ Following features have been implemented at the moment:
     python main.py
     ```
 
-## Video explanation
+## Video explanation[RUS]
 
-Comming soon..
+[Crossplatform Kivy Phonebook app](https://youtu.be/PxT8c7qP-o0)
 
 ## Previous step
 - [Phonebook console app](https://github.com/dvk-net/phone-book)
